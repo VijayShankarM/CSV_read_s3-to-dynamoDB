@@ -1,0 +1,50 @@
+Step 1: Setup AWS Services
+	S3 → Stores the CSV file
+	Lambda → Processes the CSV and inserts data into DynamoDB
+	DynamoDB → Stores structured data
+
+Step 2: Create an S3 Bucket
+	Go to AWS S3 Console → Create Bucket
+	Enter a unique bucket name (e.g., csv-upload-bucket)
+	Enable Block Public Access for security
+	Click Create bucket
+
+Step 3: Create a DynamoDB Table
+	Go to AWS DynamoDB Console → Create Table
+	Table Name: CSVData
+	Partition Key: id (String) – Unique identifier for each row
+	Click Create table
+
+Step 4: Create an AWS Lambda Function
+	Go to AWS Lambda Console → Create Function
+	Select Author from Scratch
+	Function Name: CSVProcessor
+	Runtime: Python 3.x
+	Permissions: Attach an IAM Role with access to S3 and DynamoDB
+	Click Create function
+
+Step 5: Attach an S3 Trigger to Lambda
+	Go to Lambda → Triggers → Add Trigger
+	Select S3
+	Choose the S3 bucket
+	Event type: PUT (Object Created)
+	Click Add
+
+Step 6: Write the Lambda Function to Process CSV and Store in DynamoDB
+The function should:
+	✅ Read the CSV from S3
+	✅ Parse the CSV contents
+	✅ Insert each row into DynamoDB
+
+Step 7: Upload a CSV File to S3
+	Go to S3 Console → Select your bucket
+	Click Upload → Choose a sample CSV file
+	Click Upload
+	Lambda will automatically process the file and store data in DynamoDB
+
+Step 8: Verify Data in DynamoDB
+	Go to DynamoDB Console
+	Open the CSVData table
+	Click Explore Table Items
+	Check if the data is inserted correctly
+
